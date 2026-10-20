@@ -1374,6 +1374,111 @@ document.addEventListener("DOMContentLoaded", function () {
 </section>
 
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // ЗАМЕНИ ЭТОТ АДРЕС на свой URL Cloudflare Worker
+    const WORKER_URL = "https://floral-waterfall-0cb4.bt-myrzabek010.workers.dev";
+
+    const form = document.getElementById("aiForm");
+    const input = document.getElementById("aiInput");
+    const messages = document.getElementById("aiMessages");
+    const sendButton = document.getElementById("aiSend");
+    const status = document.getElementById("aiStatus");
+
+    if (!form || !input || !messages || !sendButton || !status) {
+        return;
+    }
+
+    function addMessage(text, type) {
+        const message = document.createElement("div");
+        message.className = "ai-message " +
+            (type === "user" ? "user-message" : "assistant-message");
+
+        // textContent не позволяет вставленному тексту
+        // интерпретироваться как HTML-код.
+        message.textContent = text;
+
+        messages.appendChild(message);
+        messages.scrollTop = messages.scrollHeight;
+
+        return message;
+    }
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const message = input.value.trim();
+
+        if (!message || sendButton.disabled) {
+            return;
+        }
+
+        if (WORKER_URL.includes("YOUR-WORKER")) {
+            status.textContent = "Сначала укажи адрес своего Worker в коде.";
+            return;
+        }
+
+        addMessage(message, "user");
+
+        input.value = "";
+        input.disabled = true;
+        sendButton.disabled = true;
+        status.textContent = "ИИ обдумывает ответ...";
+
+        const loadingMessage = addMessage(
+            "Подготавливаю ответ...",
+            "assistant"
+        );
+
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: message
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.details || data.error ||
+                    "Ошибка сервера: " + response.status
+                );
+            }
+
+            if (!data.reply) {
+                throw new Error("Сервер не вернул ответ ИИ.");
+            }
+
+            loadingMessage.textContent = data.reply;
+            status.textContent = "Ответ получен";
+
+        } catch (error) {
+            console.error("Ошибка AI-чата:", error);
+
+            loadingMessage.textContent =
+                "Не удалось получить ответ. " +
+                "Попробуй ещё раз через некоторое время.";
+
+            status.textContent = "Не удалось связаться с ИИ.";
+        } finally {
+            input.disabled = false;
+            sendButton.disabled = false;
+            input.focus();
+            messages.scrollTop = messages.scrollHeight;
+        }
+    });
+});
+</script>
+</body>
+</html>
+
+
+
 
 
 
