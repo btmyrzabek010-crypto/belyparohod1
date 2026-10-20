@@ -1290,6 +1290,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- AI ASSISTANT -->
 <section id="ai-assistant" class="ai-assistant section">
 
+
+<!-- AI ASSISTANT -->
+<section id="ai-assistant" class="ai-assistant section">
+
     <div class="ai-assistant-content">
 
         <span class="eyebrow">
@@ -1302,29 +1306,73 @@ document.addEventListener("DOMContentLoaded", function () {
         </h2>
 
         <p>
-            Почему Момун не смог противостоять Оразкулу?
-            Что символизирует белый пароход?
-            Обсуди героев, легенду о Матери-оленихе
-            и нравственные ценности повести.
+            Задай вопрос о повести «Белый пароход».
+            Обсуди героев, символы, легенду о Матери-оленихе
+            и нравственные ценности произведения.
         </p>
 
-        <div id="aiStatus" aria-live="polite">
-            Голосовой помощник готов
+    </div>
+
+    <div class="ai-chat">
+
+        <div class="ai-chat-header">
+            <div class="ai-avatar">BP</div>
+
+            <div>
+                <strong>Литературный помощник</strong>
+                <span>Gemini AI · Белый пароход</span>
+            </div>
+
+            <span class="ai-online-dot"></span>
         </div>
 
-        <button id="startVoice" class="button primary"
-                type="button">
-            🎙 Начать разговор
-        </button>
+        <div
+            id="aiMessages"
+            class="ai-messages"
+            aria-live="polite"
+            aria-label="Переписка с ИИ"
+        >
+            <div class="ai-message assistant-message">
+                Привет! Я помогу разобраться в повести
+                «Белый пароход». Можешь спросить меня о
+                Мальчике, Момуне, Оразкуле или главных ценностях
+                произведения.
+            </div>
+        </div>
 
-        <button id="stopVoice" class="button secondary"
-                type="button" hidden>
-            Завершить разговор
-        </button>
+        <form id="aiForm" class="ai-chat-form">
+
+            <label class="sr-only" for="aiInput">
+                Твой вопрос
+            </label>
+
+            <textarea
+                id="aiInput"
+                name="message"
+                rows="1"
+                maxlength="4000"
+                placeholder="Напиши свой вопрос..."
+                required
+            ></textarea>
+
+            <button id="aiSend" type="submit">
+                Отправить ↗
+            </button>
+
+        </form>
+
+        <div
+            id="aiStatus"
+            class="ai-status"
+            aria-live="polite"
+        >
+            Помощник готов к разговору
+        </div>
 
     </div>
 
 </section>
+
 
 
 
