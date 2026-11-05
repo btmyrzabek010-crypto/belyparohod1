@@ -3130,9 +3130,10 @@ body {
 
 .ai-assistant {
     display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: 48px;
+    grid-template-columns: minmax(250px, 0.65fr) minmax(0, 1.35fr);
+    gap: 36px;
     align-items: center;
+    width: 100%;
 }
 
 .ai-assistant-content {
@@ -3140,6 +3141,7 @@ body {
 }
 
 .ai-chat {
+    width: 100%;
     min-width: 0;
     overflow: hidden;
     border: 1px solid rgba(120, 160, 140, 0.25);
