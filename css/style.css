@@ -3309,3 +3309,17 @@ body {
         width: 100%;
     }
 }
+
+.ai-assistant {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+}
+
+.ai-chat {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
