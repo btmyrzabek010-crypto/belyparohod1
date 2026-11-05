@@ -1445,11 +1445,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             }
 
-            if (!data.reply) {
+            const aiReply = data.answer || data.reply;
+
+            if (!aiReply) {
                 throw new Error("Сервер не вернул ответ ИИ.");
             }
 
-            loadingMessage.textContent = data.reply;
+            loadingMessage.textContent = aiReply;
             status.textContent = "Ответ получен";
 
         } catch (error) {
